@@ -1,42 +1,33 @@
 #!/bin/bash
 
-main() {
-    clear
-    local architecture=$(arch)
+# 1. Download the Roblox DMG file
+echo "Downloading Roblox..."
+curl -L -o roblox.dmg "https://roblox.com"
 
-    if [ "$architecture" == "arm64" ]
-    then
-        if [ ! -f /Library/Apple/usr/libexec/oah/libRosettaRuntime ]
-        then
-            softwareupdate --install-rosetta --agree-to-license
-        fi
-    fi
+# 2. Mount the DMG file and capture the exact mount point path
+echo "Mounting DMG..."
+MOUNT_DIR=$(hdiutil attach roblox.dmg | grep -o '/Volumes/.*' | head -n 1)
 
-    local robloxVersionInfo=$(curl -s "https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer")
-    local version=$(echo "$robloxVersionInfo" | grep -o '"clientVersionUpload":"[^"]*' | cut -d'"' -f4)
+# Check if the mount was successful
+if [ -z "$MOUNT_DIR" ]; then
+    echo "Error: Failed to mount the DMG file."
+    rm -f roblox.dmg
+    exit 1
+fi
 
-    if [ -z "$version" ]
-    then
-        exit 1
-    fi
+echo "Successfully mounted to: $MOUNT_DIR"
 
-    [ -f ./RobloxPlayer.zip ] && rm ./RobloxPlayer.zip
-    
-    if [ "$architecture" == "arm64" ]
-    then
-        curl "http://rbxcdn.com" -o "./RobloxPlayer.zip"
-    else
-        curl "http://rbxcdn.com" -o "./RobloxPlayer.zip"
-    fi
-    
-    [ -d "./Applications/Roblox.app" ] && rm -rf "./Applications/Roblox.app"
-    [ -d "/Applications/Roblox.app" ] && rm -rf "/Applications/Roblox.app"
+# 3. Extract the .app file to your User Applications folder
+echo "Extracting RobloxPlayerInstaller.app..."
+mkdir -p "$HOME/Applications"
+cp -R "$MOUNT_DIR/RobloxPlayerInstaller.app" "$HOME/Applications/"
 
-    unzip -o -q "./RobloxPlayer.zip"
-    mv ./RobloxPlayer.app /Applications/Roblox.app
-    rm ./RobloxPlayer.zip
-    
-    exit 0
-}
+# 4. Unmount the DMG volume safely
+echo "Unmounting volume..."
+hdiutil detach "$MOUNT_DIR"
 
-main
+# 5. Clean up the downloaded DMG file
+echo "Cleaning up installer files..."
+rm -f roblox.dmg
+
+echo "Done! RobloxPlayerInstaller.app is now in your Applications folder."
