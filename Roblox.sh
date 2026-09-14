@@ -12,7 +12,7 @@ main() {
         fi
     fi
 
-    local robloxVersion=$(curl -s "https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer" | grep -o '"clientVersionUpload":"[^"]*' | cut -d'"' -f4)
+    local robloxVersion=$(curl -s "https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer" | awk -F'"clientVersionUpload":"' '{print $2}' | awk -F'"' '{print $1}')
 
     if [ -z "$robloxVersion" ]; then
         exit 1
