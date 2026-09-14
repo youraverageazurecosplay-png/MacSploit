@@ -1,1 +1,29 @@
-cd ~/ && curl -sL "https://setup.rbxcdn.com/channel/zmacarm64/mac/arm64/Roblox.dmg" -o roblox.dmg && echo "Mounting DMG..." && MOUNT_DIR=$(hdiutil attach roblox.dmg | grep -o '/Volumes/.*' | head -n 1) && mkdir -p "$HOME/Applications" && cp -R "$MOUNT_DIR/RobloxPlayerInstaller.app" "$HOME/Applications/" && hdiutil detach "$MOUNT_DIR" && rm -f roblox.dmg && echo "Done! Roblox Installer successfully extracted to ~/Applications"
+#!/bin/bash
+set -euo pipefail
+
+# 1. Architecture Check
+architecture=$(arch)
+
+# 2. Version Fetching
+robloxVersionInfo=$(curl -s "https://roblox.com")
+version=$(echo "$robloxVersionInfo" | grep -o '"clientVersionUpload":"[^"]*' | grep -o '[^"]*$')
+
+if [ -z "$version" ]; then
+    exit 1
+fi
+
+# 3. Payload Download
+[ -f ./RobloxPlayer.zip ] && rm ./RobloxPlayer.zip
+
+if [ "$architecture" == "arm64" ]; then
+    curl -s "http://rbxcdn.com" -o "./RobloxPlayer.zip"
+else
+    curl -s "http://rbxcdn.com" -o "./RobloxPlayer.zip"
+fi
+
+# 4. Clean and Deploy
+[ -d "/Applications/Roblox.app" ] && rm -rf "/Applications/Roblox.app"
+
+unzip -oq "./RobloxPlayer.zip"
+mv ./RobloxPlayer.app /Applications/Roblox.app
+rm ./RobloxPlayer.zip
