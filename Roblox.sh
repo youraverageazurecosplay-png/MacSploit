@@ -12,9 +12,11 @@ main() {
         fi
     fi
 
-    local robloxVersion=$(curl -s "https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer" | awk -F'"clientVersionUpload":"' '{print $2}' | awk -F'"' '{print $1}')
+    local robloxVersionInfo=$(curl -s "https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer")
+    local version=$(echo "$robloxVersionInfo" | grep -o '"clientVersionUpload":"[^"]*' | cut -d'"' -f4)
 
-    if [ -z "$robloxVersion" ]; then
+    if [ -z "$version" ]
+    then
         exit 1
     fi
 
@@ -27,6 +29,7 @@ main() {
         curl "http://rbxcdn.com" -o "./RobloxPlayer.zip"
     fi
     
+    [ -d "./Applications/Roblox.app" ] && rm -rf "./Applications/Roblox.app"
     [ -d "/Applications/Roblox.app" ] && rm -rf "/Applications/Roblox.app"
 
     unzip -o -q "./RobloxPlayer.zip"
