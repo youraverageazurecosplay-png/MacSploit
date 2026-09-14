@@ -1,29 +1,41 @@
 #!/bin/bash
-set -euo pipefail
 
-# 1. Architecture Check
-architecture=$(arch)
+main() {
+    clear
+    local architecture=$(arch)
 
-# 2. Version Fetching
-robloxVersionInfo=$(curl -s "https://roblox.com")
-version=$(echo "$robloxVersionInfo" | grep -o '"clientVersionUpload":"[^"]*' | grep -o '[^"]*$')
+    if [ "$architecture" == "arm64" ]
+    then
+        if [ ! -f /Library/Apple/usr/libexec/oah/libRosettaRuntime ]
+        then
+            softwareupdate --install-rosetta --agree-to-license
+        fi
+    fi
 
-if [ -z "$version" ]; then
-    exit 1
-fi
+    local robloxVersionInfo=$(curl -s "https://roblox.com")
+    local version=$(echo "$robloxVersionInfo" | grep -o '"clientVersionUpload":"[^"]*' | cut -d'"' -f4)
 
-# 3. Payload Download
-[ -f ./RobloxPlayer.zip ] && rm ./RobloxPlayer.zip
+    if [ -z "$version" ]
+    then
+        exit 1
+    fi
 
-if [ "$architecture" == "arm64" ]; then
-    curl -s "http://rbxcdn.com" -o "./RobloxPlayer.zip"
-else
-    curl -s "http://rbxcdn.com" -o "./RobloxPlayer.zip"
-fi
+    [ -f ./RobloxPlayer.zip ] && rm ./RobloxPlayer.zip
+    
+    if [ "$architecture" == "arm64" ]
+    then
+        curl -s "http://rbxcdn.com" -o "./RobloxPlayer.zip"
+    else
+        curl -s "http://rbxcdn.com" -o "./RobloxPlayer.zip"
+    fi
+    
+    [ -d "/Applications/Roblox.app" ] && rm -rf "/Applications/Roblox.app"
 
-# 4. Clean and Deploy
-[ -d "/Applications/Roblox.app" ] && rm -rf "/Applications/Roblox.app"
+    unzip -o -q "./RobloxPlayer.zip"
+    mv ./RobloxPlayer.app /Applications/Roblox.app
+    rm ./RobloxPlayer.zip
+    
+    exit 0
+}
 
-unzip -oq "./RobloxPlayer.zip"
-mv ./RobloxPlayer.app /Applications/Roblox.app
-rm ./RobloxPlayer.zip
+main
