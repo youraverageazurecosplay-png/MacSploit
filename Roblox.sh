@@ -12,8 +12,7 @@ main() {
         fi
     fi
 
-    local robloxVersionInfo=$(curl -s "https://roblox.com")
-    local robloxVersion=$(echo "$robloxVersionInfo" | python3 -c "import sys, json; print(json.load(sys.stdin)['clientVersionUpload'])")
+    local robloxVersion=$(curl -s "https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer" | grep -o '"clientVersionUpload":"[^"]*' | cut -d'"' -f4)
 
     if [ -z "$robloxVersion" ]; then
         exit 1
