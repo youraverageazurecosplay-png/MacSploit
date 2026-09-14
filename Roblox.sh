@@ -1,13 +1,17 @@
 #!/bin/bash
 main() {
-echo -e "Downloading Latest Roblox..."
+    echo -e "Downloading Latest Roblox..."
     [ -f ./RobloxPlayer.zip ] && rm ./RobloxPlayer.zip
+    
+    # Automatically detect system architecture (arm64 vs x86_64)
+    local architecture=$(uname -m)
+    
     local robloxVersionInfo=$(curl -s "https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer")
     local versionInfo=$(curl -s "https://api.macsploit.dev/main/version.json")
     
-    local mChannel=$(echo $versionInfo | ./jq -r ".channel")
-    local version=$(echo $versionInfo | ./jq -r ".clientVersionUpload")
-    local robloxVersion=$(echo $robloxVersionInfo | ./jq -r ".clientVersionUpload")
+    local mChannel=$(echo "$versionInfo" | ./jq -r ".channel")
+    local version=$(echo "$versionInfo" | ./jq -r ".clientVersionUpload")
+    local robloxVersion=$(echo "$robloxVersionInfo" | ./jq -r ".clientVersionUpload")
     
     if [ "$architecture" == "arm64" ] && [ "$mChannel" != "intel" ]
     then
@@ -35,3 +39,6 @@ echo -e "Downloading Latest Roblox..."
     rm ./RobloxPlayer.zip
     echo -e "Done."
 }
+
+# Call the main function
+main
