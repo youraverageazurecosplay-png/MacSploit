@@ -27,3 +27,5 @@ I DID NOT MAKE THESE EXPLOITS, VISIT THEIR ORIGINAL REPOTORIES AND DISCORD HERE:
 [ [Macsploit Discord](https://discord.me/macsploit) ]
 
 [ [Opiumware Discord](discord.gg/opiumware) ]
+
+[ [Opiumware Github](https://github.com/norbyv1/OpiumwareInstall) ]
