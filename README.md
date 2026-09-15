@@ -29,7 +29,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/youraverageazurecosplay-
 ```
 
 
-TW: Macsploit has a free trial of 4 days, so on installation just press return when prompted for a liscense
+**Macsploit has a free trial of 4 days, so on installation just press return when prompted for a license**
 
 I DID NOT MAKE THESE EXPLOITS, VISIT THEIR ORIGINAL REPOTORIES AND DISCORD HERE:
 
