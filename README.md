@@ -1,17 +1,15 @@
-$${\color{red}Welcome \space \color{lightblue}To \space \color{lightgreen}{GitHub}}$$
-
 Compiled MacOS Exploits, mainly for Roblox
 
 Installer Scripts
 
-Macsploit 
+--[**Macsploit**]--
 
 Install:
 ```text
 cd ~/ && curl -s "https://raw.githubusercontent.com/youraverageazurecosplay-png/MacSploit/refs/heads/main/Macsploit/InstallMacsploit.sh" | bash </dev/tty
 ```
 
-Opiumware:
+--[**Opiumware**]--
 
 Install:
 ```text
@@ -23,7 +21,7 @@ Uninstall:
 cd ~/ && curl -s "https://raw.githubusercontent.com/youraverageazurecosplay-png/MacSploit/refs/heads/main/Opiumware/Uninstall.sh" | bash </dev/tty
 ```
 
-Hydrogen
+--[**Hydrogen**]--
 ```text
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/youraverageazurecosplay-png/MacSploit/refs/heads/main/Hydrogen/Install)"
 ```
