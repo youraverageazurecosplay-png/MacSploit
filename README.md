@@ -1,4 +1,6 @@
 Compiled MacOS Exploits, mainly for Roblox
+Installer Scripts
+Macsploit:
 ```text
-This text will have an automatic copy button on GitHub.
+cd ~/ && curl -s "https://raw.githubusercontent.com/youraverageazurecosplay-png/MacSploit/refs/heads/main/Macsploit/InstallMacsploit.sh" | bash </dev/tty
 ```
