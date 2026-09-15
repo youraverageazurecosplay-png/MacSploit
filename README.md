@@ -23,3 +23,7 @@ TW: Macsploit has a free trial of 4 days, so on installation just press return w
 I DID NOT MAKE THESE EXPLOITS, VISIT THEIR ORIGINAL REPOTORIES AND DISCORD HERE:
 
 [ [Macsploit Github](https://github.com/Nexus42Dev/MacSploit) ]
+
+[ [Macsploit Discord](https://discord.me/macsploit) ]
+
+[ [Opiumware Discord](discord.gg/opiumware) ]
