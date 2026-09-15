@@ -9,6 +9,7 @@ Install:
 cd ~/ && curl -s "https://raw.githubusercontent.com/youraverageazurecosplay-png/MacSploit/refs/heads/main/Macsploit/InstallMacsploit.sh" | bash </dev/tty
 ```
 
+
 --[**Opiumware**]--
 
 Install:
@@ -21,10 +22,12 @@ Uninstall:
 cd ~/ && curl -s "https://raw.githubusercontent.com/youraverageazurecosplay-png/MacSploit/refs/heads/main/Opiumware/Uninstall.sh" | bash </dev/tty
 ```
 
+
 --[**Hydrogen**]--
 ```text
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/youraverageazurecosplay-png/MacSploit/refs/heads/main/Hydrogen/Install)"
 ```
+
 
 TW: Macsploit has a free trial of 4 days, so on installation just press return when prompted for a liscense
 
